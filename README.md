@@ -9,7 +9,7 @@
 3. `cd` to the directory in terminal<br/>
 4. `npm install`<br/>
 5. `npm run start:dev`<br/>
-6. Open [localhost:3000](http://localhost:3000/) in a web browser<br/>
+6. Open [localhost:3000/graphql](http://localhost:3000/graphql) in a web browser<br/>
 
 ## Optional steps
 * `npm i -g @nestjs/cli` -- To use shortcuts for generating new files. If this command fails, try running as admin. On Windows, run CMD as admin. On Mac/Linux, add `sudo` before command.
