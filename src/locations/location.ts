@@ -1,5 +1,5 @@
 import { ObjectType } from 'type-graphql';
-import { Typegoose } from 'typegoose';
+import { Typegoose } from '@hasezoey/typegoose';
 
 @ObjectType()
 export class Location extends Typegoose {
