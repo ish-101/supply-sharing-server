@@ -3,6 +3,10 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Email {
+  email_address: String!
+}
+
 type Name {
   familyName: String!
   givenName: String!
@@ -16,5 +20,6 @@ type User {
   id: ID!
   name: Name
   googleId: String
+  email: Email
   username: String
 }

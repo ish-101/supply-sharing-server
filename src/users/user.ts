@@ -24,9 +24,10 @@ export class User extends Typegoose
     @prop({ unique: true })
     email: Email;
 
+    @Field({ nullable: true })
+    @prop({ unique: true })
+    username: string;
+
     @prop({})
     password: string;
-
-    @prop({ ref: Location })
-    location: Ref<Location>;
 }
