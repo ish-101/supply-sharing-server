@@ -10,4 +10,9 @@ export class Name extends Typegoose {
     @Field()
     @prop({ required: true })
     givenName: string;
+
+    @prop()
+    get fullName() {
+    	return `${ this.givenName } ${ this.familyName }`;
+    }
 }

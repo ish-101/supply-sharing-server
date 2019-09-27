@@ -10,7 +10,7 @@ import { UsersService } from './users.service';
 export class UsersResolver {
     constructor(
         private readonly usersService: UsersService,
-    ) {}
+    ){ }
 
     @Query(returns => User, { nullable: true })
     async me(@CurrentUser() user: User): Promise<User> {

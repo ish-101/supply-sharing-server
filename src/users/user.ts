@@ -1,24 +1,32 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Typegoose, prop, Ref } from "@hasezoey/typegoose";
-import { Name } from "./name";
+import { Name } from "./members/name";
+import { Email } from "./members/email";
+import { Location } from "../locations/location";
 
 @ObjectType()
-export class User extends Typegoose {
-    @Field( type => ID )
+export class User extends Typegoose 
+{
+    @Field(type => ID)
     id: string;
 
-    @Field( type => Name, { nullable: true } )
-    @prop({ _id: false })
+    @Field(type => Name, { nullable: true })
+    @prop({ _id: false, required: true })
     name: Name;
 
-    @Field({ nullable: true })
-    @prop()
-    googleId: string;
-
+    // either sign in with the google tie in
     @Field({ nullable: true })
     @prop({ unique: true })
-    username: string;
+    googleId: string;
 
-    @prop()
+    // or with the user inputted email
+    @Field(type => Email, { nullable: true })
+    @prop({ unique: true })
+    email: Email;
+
+    @prop({})
     password: string;
+
+    @prop({ ref: Location })
+    location: Ref<Location>;
 }
