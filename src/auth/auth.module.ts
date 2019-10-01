@@ -9,6 +9,7 @@ import { GraphqlModule } from '../graphql/graphql.module';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
+import { AuthResolver } from './auth.resolver';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthController } from './auth.controller';
   ],
   providers: [
     AuthService,
+    AuthResolver,
     JwtStrategy,
     GoogleStrategy,
     LocalStrategy,

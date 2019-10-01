@@ -30,15 +30,13 @@ export class AuthService {
         };
     }
 
-    async validateLocalLogin(username: string, password: string): Promise<any> {
+    async validateLocalLogin(username: string, password: string): Promise<string> {
         const user = await this.usersService.findOneByUsername(username);
         if (user) {
             const passwordsMatch = await comparePassword(password, user.password);
             if (passwordsMatch) {
                 const payload = { id: user.id };
-                return {
-                  access_token: this.jwtService.sign(payload),
-                };
+                return this.jwtService.sign(payload);
             }
         }
         return null;
