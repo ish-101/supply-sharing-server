@@ -10,24 +10,19 @@ export class User extends Typegoose
     @Field(type => ID)
     id: string;
 
-    @Field(type => Name, { nullable: true })
+    @Field(type => Name)
     @prop({ _id: false, required: true })
     name: Name;
 
-    // either sign in with the google tie in
-    @Field({ nullable: true })
-    @prop({ unique: true })
-    googleId: string;
-
     // or with the user inputted email
-    @Field(type => Email, { nullable: true })
-    @prop({ unique: true })
-    email: Email;
+    @Field()
+    @prop({ unique: true, required: true })
+    email: string;
 
-    @Field({ nullable: true })
-    @prop({ unique: true })
+    @Field()
+    @prop({ unique: true, required: true })
     username: string;
 
-    @prop({})
+    @prop({ required: true})
     password: string;
 }

@@ -3,10 +3,6 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Email {
-  email_address: String!
-}
-
 type Name {
   familyName: String!
   givenName: String!
@@ -18,8 +14,7 @@ type Query {
 
 type User {
   id: ID!
-  name: Name
-  googleId: String
-  email: Email
-  username: String
+  name: Name!
+  email: String!
+  username: String!
 }

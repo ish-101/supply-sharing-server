@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { google } from 'apollo-engine-reporting-protobuf';
 import { bcryptConstants } from './constants';
 import { hash as hashPassword, compare as comparePassword } from  'bcrypt';
+import { User } from 'src/users/user';
 
 @Injectable()
 export class AuthService {
@@ -43,13 +44,11 @@ export class AuthService {
         return null;
     }
 
-    async registerLocalUser(username: string, password: string): Promise<any> {
+    async registerLocalUser(userData: User): Promise<any> {
         try {
-            const hashResult = await hashPassword(password, bcryptConstants.saltRounds);
-            const user = await this.usersService.createOne({
-                username: username,
-                password: hashResult,
-            });
+            const hashResult = await hashPassword(userData.password, bcryptConstants.saltRounds);
+            userData.password = hashResult;
+            const user = await this.usersService.createOne(userData);
             return user.username;
         } catch(err) {
             return err;

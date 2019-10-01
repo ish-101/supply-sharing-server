@@ -33,6 +33,6 @@ export class AuthController {
 
     @Post('register')
     async register(@Req() req) {
-        return this.authService.registerLocalUser(req.body.username, req.body.password);
+        return this.authService.registerLocalUser(req.body);
     }
 }
