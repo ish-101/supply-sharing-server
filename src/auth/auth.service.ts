@@ -26,10 +26,10 @@ export class AuthService {
         return null;
     }
 
-    async registerLocalUser(userData: RegisterUserInput): Promise<string> {
+    async registerLocalUser(userData: RegisterUserInput): Promise<Boolean> {
         const hashResult = await hashPassword(userData.password, bcryptConstants.saltRounds);
         userData.password = hashResult;
-        const user = await this.usersService.createOne(userData);
-        return user.username;
+        await this.usersService.createOne(userData);
+        return true;
     }
 }

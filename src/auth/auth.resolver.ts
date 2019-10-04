@@ -11,12 +11,11 @@ export class AuthResolver {
 	
 	@Query(returns => String, { nullable: true })
 	async login(@Args('username') username: string, @Args('password') password: string) : Promise<string> {
-		console.log(username, password);
 		return await this.authService.validateLocalLogin(username, password);
 	}
 
-	@Mutation(returns => String)
-	async register(@Args('data', new ValidationPipe()) data: RegisterUserInput): Promise<string> {
+	@Mutation(returns => Boolean)
+	async register(@Args('data', new ValidationPipe()) data: RegisterUserInput): Promise<Boolean> {
 		return await this.authService.registerLocalUser(data);
 	}
 }
