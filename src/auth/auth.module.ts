@@ -6,7 +6,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtKey } from '../keys/authKeys';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { GraphqlModule } from '../graphql/graphql.module';
-import { GoogleStrategy } from './strategies/google.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
@@ -25,7 +24,6 @@ import { AuthResolver } from './auth.resolver';
     AuthService,
     AuthResolver,
     JwtStrategy,
-    GoogleStrategy,
     LocalStrategy,
   ],
   exports: [AuthService],

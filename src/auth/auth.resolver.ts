@@ -10,7 +10,6 @@ export class AuthResolver {
 		private readonly authService: AuthService
 	) { }
 	
-    @UseGuards(AuthGuard('local'))
 	@Query(returns => String, { nullable: true })
 	async login(@Args('username') username: string, @Args('password') password: string) : Promise<string> {
 		console.log(username, password);
