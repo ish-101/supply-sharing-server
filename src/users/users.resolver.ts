@@ -1,4 +1,4 @@
-import { Resolver, ResolveProperty, Parent, Root, Query } from '@nestjs/graphql';
+import { Resolver, Query } from '@nestjs/graphql';
 import { User } from './user';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';

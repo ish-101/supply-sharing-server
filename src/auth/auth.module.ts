@@ -7,7 +7,6 @@ import { jwtKey } from '../keys/authKeys';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { GraphqlModule } from '../graphql/graphql.module';
 import { LocalStrategy } from './strategies/local.strategy';
-import { AuthController } from './auth.controller';
 import { AuthResolver } from './auth.resolver';
 
 @Module({
@@ -27,6 +26,5 @@ import { AuthResolver } from './auth.resolver';
     LocalStrategy,
   ],
   exports: [AuthService],
-  controllers: [AuthController],
 })
 export class AuthModule {}

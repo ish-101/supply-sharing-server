@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { GraphqlModule } from '../graphql/graphql.module';
 import { DatabaseModule } from '../database/database.module';

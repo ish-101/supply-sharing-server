@@ -1,8 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { ValidationPipe } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from '@nestjs/passport';
+import { RegisterUserInput } from '../users/dto/registerUser.input';
 
 @Resolver('Auth')
 export class AuthResolver {
@@ -16,8 +15,8 @@ export class AuthResolver {
 		return await this.authService.validateLocalLogin(username, password);
 	}
 
-	/* @Mutation()
-	async register() {
-
-	} */
+	@Mutation(returns => String)
+	async register(@Args('data', new ValidationPipe()) data: RegisterUserInput): Promise<string> {
+		return await this.authService.registerLocalUser(data);
+	}
 }

@@ -1,11 +1,9 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Typegoose, prop, Ref } from "@hasezoey/typegoose";
 import { Name } from "./members/name";
-import { IsEmail } from "class-validator";
 
 @ObjectType()
-export class User extends Typegoose 
-{
+export class User extends Typegoose {
     @Field(type => ID)
     id: string;
 
@@ -13,10 +11,8 @@ export class User extends Typegoose
     @prop({ _id: false, required: true })
     name: Name;
 
-    // or with the user inputted email
     @Field()
     @prop({ unique: true, required: true })
-    @IsEmail()
     email: string;
 
     @Field()

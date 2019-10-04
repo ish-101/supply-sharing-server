@@ -1,7 +1,8 @@
 import { Typegoose, prop } from "@hasezoey/typegoose";
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, InputType } from "type-graphql";
 
-@ObjectType()
+@ObjectType('Name')
+@InputType('NameInput')
 export class Name extends Typegoose {
     @Field()
     @prop({ required: true })
