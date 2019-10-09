@@ -1,6 +1,7 @@
 import { Field, InputType } from "type-graphql";
-import { Length, Validate } from "class-validator";
+import { Length, Validate, Matches } from "class-validator";
 import { IsCountry } from "../../validators/IsCountry.validator";
+import { IsGendered } from "../../validators/IsGendered.validator";
 import { Location } from "../location";
 
 @InputType()
@@ -9,7 +10,6 @@ export class CreateLocationInput implements Partial<Location> {
   name: string;
 
   // for now, I'm not going to try to validate the following :'(
-
   @Field()
   street_address: string;
 
@@ -27,6 +27,11 @@ export class CreateLocationInput implements Partial<Location> {
   @Field()
   zip_code: string;
 
+  @Field()
+  @Matches(/home|apartment|dorm/g)
+  type: string;
+
+  @Validate(IsGendered)
   @Field({ nullable: true })
   gender: string;
 }

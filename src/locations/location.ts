@@ -7,9 +7,9 @@ export class Location extends Typegoose
     @Field(type => ID)
     id: string;
 
-    @Field({ nullable: true })
-    @prop({ _id: false })
-    name: string;
+    @Field()
+    @prop({ _id: false, required: true })
+    name: string
 
     @Field()
     @prop({ required: true })
@@ -38,7 +38,6 @@ export class Location extends Typegoose
     @Field({ nullable: true })
     @prop({ required: false })
     gender: string;
-
 
     // further research will have to be done to figure out how to store
     // the location, as generated from the address
