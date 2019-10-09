@@ -18,7 +18,7 @@ export class LocationsResolver {
   ) { }
 
   @Mutation(returns => Location)
-  async joinApartmentDormLocation(@CurrentUser user: User,
+  async joinApartmentDormLocation(@CurrentUser() user: User,
     @Args('location_id') location_id: string): Promise<Location> {
     var location = await this.locationsService.findOneById(location_id);
     await this.usersService.joinLocation(user.id, location);
@@ -34,7 +34,7 @@ export class LocationsResolver {
 
   // this function automatically joins the location when done creating
   @Mutation(returns => Location)
-  async createHomeLocation(@CurrentUser user: User,
+  async createHomeLocation(@CurrentUser() user: User,
     @Args('data', new ValidationPipe())
     data: CreateLocationInput): Promise<Location> {
     return null;
