@@ -1,5 +1,7 @@
 import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
@@ -10,6 +12,7 @@ import { Location } from './location';
 import { LocationsService } from './locations.service';
 import { CreateLocationInput } from './dto/createLocation.input';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Location)
 export class LocationsResolver {
   constructor(
@@ -21,6 +24,7 @@ export class LocationsResolver {
   async joinApartmentDormLocation(@CurrentUser() user: User,
     @Args('location_id') location_id: string): Promise<Location> {
     var location = await this.locationsService.findOneById(location_id);
+    console.log(user, location);
     await this.usersService.joinLocation(user.id, location);
     return location;
   }
