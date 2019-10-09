@@ -2,27 +2,42 @@ import { ObjectType, Field, ID } from 'type-graphql';
 import { Typegoose, prop } from '@hasezoey/typegoose';
 
 @ObjectType()
-export class Location extends Typegoose 
+export class Location extends Typegoose
 {
     @Field(type => ID)
     id: string;
 
     @Field({ nullable: true })
-    @prop({ _id: false, required: true})
+    @prop({ _id: false })
     name: string;
 
-    @Field({ nullable: true })
-    @prop({ unique: true, required: true })
-    address: string
-
-    @Field({ nullable: true })
+    @Field()
     @prop({ required: true })
-    city: string
+    street_address: string;
+
+    @Field()
+    @prop({ required: true })
+    city: string;
+
+    @Field()
+    @prop({ required: true })
+    state: string;
+
+    @Field()
+    @prop({ required: true })
+    country: string;
+
+    @Field()
+    @prop({ required: true })
+    zip_code: string;
+
+    @Field()
+    @prop({ required: true })
+    type: string;
 
     @Field({ nullable: true })
-    @prop({ required: true })
-    state: string
-
+    @prop({ required: false })
+    gender: string;
 
 
     // further research will have to be done to figure out how to store

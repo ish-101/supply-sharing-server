@@ -8,14 +8,16 @@ export class AuthResolver {
 	constructor(
 		private readonly authService: AuthService
 	) { }
-	
+
 	@Query(returns => String, { nullable: true })
-	async login(@Args('username') username: string, @Args('password') password: string) : Promise<string> {
+	async login(@Args('username') username: string,
+		@Args('password') password: string) : Promise<string> {
 		return await this.authService.validateLocalLogin(username, password);
 	}
 
 	@Mutation(returns => Boolean)
-	async register(@Args('data', new ValidationPipe()) data: RegisterUserInput): Promise<Boolean> {
+	async register(@Args('data', new ValidationPipe())
+		data: RegisterUserInput): Promise<Boolean> {
 		return await this.authService.registerLocalUser(data);
 	}
 }

@@ -3,6 +3,8 @@ import { GraphqlModule } from '../graphql/graphql.module';
 import { DatabaseModule } from '../database/database.module';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { Location } from './location';
+import { LocationsService } from './locations.service';
+import { LocationsResolver } from './locations.resolver';
 
 @Module({
     imports: [
@@ -12,7 +14,7 @@ import { Location } from './location';
             Location,
         ]),
     ],
-    providers: [],
-    exports: [],
+    providers: [LocationsService, LocationsResolver],
+    exports: [LocationsService],
 })
 export class LocationsModule {}

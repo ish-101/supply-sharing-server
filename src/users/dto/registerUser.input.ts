@@ -19,7 +19,8 @@ export class RegisterUserInput implements Partial<User> {
 
     @Field()
     username: string;
-    
+
+    // maybe add a length validator
     @Field()
     password: string;
 }

@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from "type-graphql";
 import { Typegoose, prop, Ref } from "@hasezoey/typegoose";
 import { Name } from "./members/name";
+import { Location } from "../locations/location";
 
 @ObjectType()
 export class User extends Typegoose {
@@ -21,4 +22,12 @@ export class User extends Typegoose {
 
     @prop({ required: true})
     password: string;
+
+    @Field(type => Location, { nullable: true })
+    @prop()
+    location: Location
+
+    @Field()
+    @prop()
+    room_number: string;
 }

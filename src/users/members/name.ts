@@ -12,8 +12,7 @@ export class Name extends Typegoose {
     @prop({ required: true })
     givenName: string;
 
-    @prop()
-    get fullName() {
+    get fullName() : string {
     	return `${ this.givenName } ${ this.familyName }`;
     }
 }
