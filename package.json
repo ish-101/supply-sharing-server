@@ -16,7 +16,8 @@
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-        "test:e2e": "jest --config ./test/jest-e2e.json"
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "postinstall": "npm run prestart:prod"
     },
     "dependencies": {
         "@hasezoey/typegoose": "^5.9.2",
@@ -45,7 +46,6 @@
         "reflect-metadata": "^0.1.12",
         "rimraf": "^2.6.2",
         "rxjs": "^6.3.3",
-        "ts-node": "^8.4.1",
         "type-graphql": "^0.17.5",
         "typegoose": "^5.9.1"
     },
@@ -62,6 +62,7 @@
         "prettier": "1.17.0",
         "supertest": "4.0.2",
         "ts-jest": "24.0.2",
+        "ts-node": "^8.4.1",
         "tsc-watch": "2.2.1",
         "tsconfig-paths": "3.8.0",
         "tslint": "5.16.0",
