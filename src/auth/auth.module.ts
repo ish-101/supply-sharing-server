@@ -7,18 +7,22 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { GraphqlModule } from '../graphql/graphql.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthResolver } from './auth.resolver';
-import { ConfigService } from 'nestjs-dotenv';
-import { KeysModule } from '../keys/keys.module';
+import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
 
 @Module({
   imports: [
     UsersModule,
     GraphqlModule,
     PassportModule,
-    KeysModule,
-    JwtModule.register({
-      signOptions: { expiresIn: '15d' },
-      secretOrPrivateKey: (new ConfigService).get('JWT_SECRET')
+    ConfigModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secretOrPrivateKey: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '15d' },
+      }),
+      inject: [ConfigService]
     }),
   ],
   providers: [

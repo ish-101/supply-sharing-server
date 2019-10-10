@@ -30,4 +30,7 @@ export class User extends Typegoose {
     @Field()
     @prop()
     room_number: string;
+
+    @prop({ required: true, default: false })
+    verified: boolean;
 }

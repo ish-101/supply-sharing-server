@@ -6,6 +6,10 @@ import { GraphQLModule } from '@nestjs/graphql';
         GraphQLModule.forRoot({
             autoSchemaFile: 'autogenSchema.gql',
             context: ({ req }) => ({ req }),
+            debug: true,
+            tracing: true,
+            introspection: true,
+            playground: true
         }),
     ],
 })
