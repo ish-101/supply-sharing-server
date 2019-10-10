@@ -11,10 +11,10 @@ import { UsersModule } from '../users/users.module';
     imports: [
         GraphqlModule,
         DatabaseModule,
+        UsersModule,
         TypegooseModule.forFeature([
             Location,
         ]),
-        UsersModule,
     ],
     providers: [LocationsService, LocationsResolver],
     exports: [LocationsService],
