@@ -16,7 +16,7 @@ export class AuthService {
 
     async validateLocalLogin(username: string, password: string): Promise<string> {
         const user = await this.usersService.findOneByUsername(username);
-        if (user) {
+        if (user && user.verified) {
             const passwordsMatch = await comparePassword(password, user.password);
             if (passwordsMatch) {
                 const payload = { id: user.id };
