@@ -7,7 +7,7 @@ import { KeysModule } from '../keys/keys.module';
     imports: [
         KeysModule,
         TypegooseModule.forRoot(
-            (new ConfigService).get('MONGO_URI'),
+            process.env.MONGO_URI || (new ConfigService).get('MONGO_URI'),
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
