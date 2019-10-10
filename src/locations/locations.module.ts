@@ -5,6 +5,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { Location } from './location';
 import { LocationsService } from './locations.service';
 import { LocationsResolver } from './locations.resolver';
+import { UsersModule } from '../users/users.module';
 
 @Module({
     imports: [
@@ -13,6 +14,7 @@ import { LocationsResolver } from './locations.resolver';
         TypegooseModule.forFeature([
             Location,
         ]),
+        UsersModule,
     ],
     providers: [LocationsService, LocationsResolver],
     exports: [LocationsService],

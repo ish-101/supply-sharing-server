@@ -5,7 +5,7 @@
 
 ## How to start working
 1. Clone<br/>
-2. Copy keys from [Google Drive](https://drive.google.com/drive/folders/1W9KvJiPUx7_T9ksZ2qPHG8S4-RzMoVbr?usp=sharing) to `src/keys`.
+2. Copy the .env file from [Google Drive](https://drive.google.com/drive/folders/1W9KvJiPUx7_T9ksZ2qPHG8S4-RzMoVbr?usp=sharing) to the root folder of the project.
 3. `cd` to the directory in terminal<br/>
 4. `npm install`<br/>
 5. `npm run start:dev`<br/>

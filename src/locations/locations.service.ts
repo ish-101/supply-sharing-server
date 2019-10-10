@@ -10,26 +10,9 @@ export class LocationsService extends CrudService<Location> {
   constructor(@InjectModel(Location) private readonly locationsModel: ModelType<Location>) {
     super(locationsModel);
   }
+
   // what kind of services would we need?
-
-  async createApartmentLocation(locationData:
-    CreateLocationInput): Promise<Location> {
-    return await this.createOne({
-      ...locationData,
-      ...{
-        type: 'apartment',
-        gender: 'none',
-      },
-    });
-  }
-
-  async createDormLocation(locationData:
-    CreateLocationInput): Promise<Location> {
-    return await this.createOne({
-      ...locationData,
-      ...{
-        type: 'dorm'
-      },
-    });
+  async createLocation(locationData: CreateLocationInput): Promise<Location> {
+    return await this.createOne(locationData);
   }
 }
