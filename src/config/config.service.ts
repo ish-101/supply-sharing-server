@@ -1,14 +1,11 @@
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
+import { DotenvService } from "../dotenv/dotenv.service";
+import { Injectable } from "@nestjs/common";
 
+@Injectable()
 export class ConfigService {
-  private readonly envConfig: { [key: string]: string };
-
-  constructor(filePath: string) {
-    this.envConfig = dotenv.parse(fs.readFileSync(filePath))
-  }
+  constructor(private readonly dotenvService: DotenvService) {}
 
   get(key: string): string {
-    return process.env[key] || this.envConfig[key];
+    return this.dotenvService.get(key);
   }
 }

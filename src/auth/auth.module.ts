@@ -16,9 +16,13 @@ import { ConfigService } from '../config/config.service';
     GraphqlModule,
     PassportModule,
     ConfigModule,
-    JwtModule.register({
-      signOptions: { expiresIn: '15d' },
-      secretOrPrivateKey: (new ConfigService('.env')).get('JWT_KEY'),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secretOrPrivateKey: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '15d' },
+      }),
+      inject: [ConfigService]
     }),
   ],
   providers: [

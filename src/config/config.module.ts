@@ -1,13 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from './config.service';
+import { DotenvModule } from '../dotenv/dotenv.module';
+import { DotenvService } from '../dotenv/dotenv.service';
 
 @Module({
-  providers: [
-    {
-      provide: ConfigService,
-      useValue: new ConfigService('.env'),
-    },
-  ],
-  exports: [ConfigService],
+  imports: [DotenvModule],
+  providers: [ConfigService],
+  exports: [ConfigService]
 })
 export class ConfigModule {}
