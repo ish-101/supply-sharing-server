@@ -26,7 +26,7 @@ export class LocationsResolver {
     var location = await this.locationsService.findOneById(location_id);
     if(location != null)
     {
-      console.log(await this.usersService.joinLocation(user.id, location));
+      await this.usersService.joinLocation(user.id, location);
     }
     return location;
   }
