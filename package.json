@@ -36,7 +36,6 @@
         "graphql-tag-pluck": "^0.8.5",
         "locationiq": "0.0.3",
         "mongoose": "^5.7.1",
-        "nestjs-dotenv": "^1.0.1",
         "nestjs-typegoose": "^5.2.1",
         "passport": "^0.4.0",
         "passport-google-oauth20": "^2.0.0",

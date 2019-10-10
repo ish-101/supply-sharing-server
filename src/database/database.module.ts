@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypegooseModule } from 'nestjs-typegoose';
-import { ConfigService } from 'nestjs-dotenv';
-import { KeysModule } from '../keys/keys.module';
+import { ConfigModule } from '../config/config.module';
+import { ConfigService } from '../config/config.service';
+
 
 @Module({
     imports: [
-        KeysModule,
+        ConfigModule,
         TypegooseModule.forRoot(
-            process.env.MONGO_URI || (new ConfigService).get('MONGO_URI'),
+            (new ConfigService('.env')).get('MONGO_URI'),
             {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
