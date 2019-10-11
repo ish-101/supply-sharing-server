@@ -7,7 +7,6 @@ import { GraphQLModule } from '@nestjs/graphql';
             autoSchemaFile: 'autogenSchema.gql',
             context: ({ req }) => ({ req }),
             debug: true,
-            tracing: true,
             introspection: true,
             playground: true
         }),
