@@ -2,10 +2,11 @@ import { Field, InputType } from "type-graphql";
 import { Length, Validate, Matches } from "class-validator";
 import { IsCountry } from "../../validators/IsCountry.validator";
 import { IsGendered } from "../../validators/IsGendered.validator";
-import { Location } from "../location";
+import { Building } from "../building";
 
 @InputType()
-export class CreateLocationInput implements Partial<Location> {
+export class CreateBuildingInput implements Partial<Building> {
+
   @Field()
   name: string;
 

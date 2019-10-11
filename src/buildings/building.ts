@@ -2,13 +2,13 @@ import { ObjectType, Field, ID } from 'type-graphql';
 import { Typegoose, prop } from '@hasezoey/typegoose';
 
 @ObjectType()
-export class Location extends Typegoose
+export class Building extends Typegoose
 {
     @Field(type => ID)
     id: string;
 
-    @Field()
-    @prop({ _id: false, required: true })
+    @Field({ nullable: true })
+    @prop({ _id: false })
     name: string
 
     @Field()
