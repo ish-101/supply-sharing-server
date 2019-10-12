@@ -35,6 +35,10 @@ export class Building extends Typegoose
     @prop({ required: true })
     type: string;
 
+    @Field()
+    @prop({ required: true })
+    outside_accessible: boolean;
+
     @Field({ nullable: true })
     @prop({ required: false })
     gender: string;

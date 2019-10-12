@@ -5,8 +5,8 @@ import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from 'typegoose';
 
 @Injectable()
-export class UserLocationService extends CrudService<UserLocation> {
-    constructor(@InjectModel(UserLocation) private readonly userLocationsModel: ModelType<UserLocation>) {
-        super(userLocationsModel);
-    }
+export class UserLocationsService extends CrudService<UserLocation> {
+  constructor(@InjectModel(UserLocation) private readonly userLocationsModel: ModelType<UserLocation>) {
+    super(userLocationsModel);
+  }
 }

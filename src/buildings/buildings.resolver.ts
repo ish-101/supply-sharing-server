@@ -3,7 +3,6 @@ import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
 
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 import { Building } from './building';
 import { BuildingsService } from './buildings.service';
@@ -16,10 +15,10 @@ export class BuildingsResolver {
     private readonly buildingsService: BuildingsService,
   ) { }
 
-  @Mutation(returns => Building, { nullable: true })
-  async createBuilding(@Args('data', new ValidationPipe())
-    data: CreateBuildingInput): Promise<Building> {
-    // literally no need to divy between home/apartment/dorm
-    return await this.buildingsService.createBuilding(data);
+  @Mutation(returns => String, { nullable: true })
+  async createBuilding(
+    @Args('data', new ValidationPipe()) data: CreateBuildingInput
+  ): Promise<string> {
+    return (await this.buildingsService.createBuilding(data)).id;
   }
 }
