@@ -7,6 +7,7 @@ import { OrdersService } from './orders.service';
 import { OrdersResolver } from './orders.resolver';
 import { UsersModule } from '../users/users.module';
 import { ProductsModule } from '../products/products.module';
+import { UserLocationModule } from '../user-locations/user-locations.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { ProductsModule } from '../products/products.module';
         DatabaseModule,
         UsersModule,
         ProductsModule,
+        UserLocationModule,
         TypegooseModule.forFeature([
             Order,
         ]),
