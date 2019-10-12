@@ -10,8 +10,8 @@ export class CrudService<modelType> {
         return await doc.save();
     }
 
-    async findAll(): Promise<modelType[]> {
-        return await this.model.find();
+    async findMultiple(where: any = {}): Promise<modelType[]> {
+        return await this.model.find(where);
     }
 
     async findOneById(id: string): Promise<modelType> {
