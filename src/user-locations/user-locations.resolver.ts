@@ -9,7 +9,7 @@ import { UserLocation } from './user-location';
 import { UserLocationsService } from './user-locations.service';
 
 import { BuildingsService } from '../buildings/buildings.service';
-import { CreateBuildingInput } from '../buildings/dto/createBuilding.input';
+import { CreateBuildingInput } from '../buildings/dto/create-building.input';
 
 import { User } from '../users/user';
 

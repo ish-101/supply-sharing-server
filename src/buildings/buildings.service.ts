@@ -3,7 +3,7 @@ import { InjectModel } from 'nestjs-typegoose';
 import { ModelType } from '@hasezoey/typegoose';
 import { CrudService } from '../crud/crud.service';
 import { Building } from './building';
-import { CreateBuildingInput } from './dto/createBuilding.input';
+import { CreateBuildingInput } from './dto/create-building.input';
 
 @Injectable()
 export class BuildingsService extends CrudService<Building> {

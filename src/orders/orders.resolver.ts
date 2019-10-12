@@ -6,7 +6,7 @@ import { OrdersService } from './orders.service';
 import { Product } from '../products/product';
 import { ProductsService } from '../products/products.service';
 import { UserLocation } from '../user-locations/user-location';
-import { UserLocationService } from '../user-locations/user-locations.service';
+import { UserLocationsService } from '../user-locations/user-locations.service';
 
 @Resolver(of => Order)
 export class OrdersResolver {
@@ -14,7 +14,7 @@ export class OrdersResolver {
         private readonly ordersService: OrdersService,
         private readonly usersService: UsersService,
         private readonly productsService: ProductsService,
-        private readonly userLocationService: UserLocationService,
+        private readonly userLocationService: UserLocationsService,
     ) {}
 
     @Query(returns => Order, { nullable: true })

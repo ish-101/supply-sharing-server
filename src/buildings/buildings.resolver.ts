@@ -6,7 +6,7 @@ import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
 import { Building } from './building';
 import { BuildingsService } from './buildings.service';
-import { CreateBuildingInput } from './dto/createBuilding.input';
+import { CreateBuildingInput } from './dto/create-building.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(of => Building)
