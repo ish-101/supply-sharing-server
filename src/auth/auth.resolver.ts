@@ -18,7 +18,7 @@ export class AuthResolver {
 	}
 
 	@Mutation(returns => String)
-	async register(
+	async registerUser(
 		@Args('data', new ValidationPipe())data: RegisterUserInput
 	): Promise<string> {
 		return await this.authService.registerLocalUser(data);

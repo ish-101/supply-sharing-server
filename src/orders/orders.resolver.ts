@@ -23,7 +23,7 @@ export class OrdersResolver {
     ) {}
 
     @Mutation(returns => String)
-    async createOrder(
+    async placeOrder(
         @CurrentUser() user: User,
         @Args('data', new ValidationPipe()) dto: CreateOrderInput
     ): Promise<string> {
