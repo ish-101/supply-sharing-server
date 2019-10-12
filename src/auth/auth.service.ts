@@ -3,9 +3,9 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { google } from 'apollo-engine-reporting-protobuf';
 import { bcryptConstants } from './constants';
-import { hash as hashPassword, compare as comparePassword } from  'bcrypt';
-import { User } from 'src/users/user';
-import { RegisterUserInput } from 'src/users/dto/registerUser.input';
+import { hash as hashPassword, compare as comparePassword } from 'bcrypt';
+import { User } from '../users/user';
+import { RegisterUserInput } from '../users/dto/register-user.input';
 
 @Injectable()
 export class AuthService {
@@ -26,10 +26,10 @@ export class AuthService {
         return null;
     }
 
-    async registerLocalUser(userData: RegisterUserInput): Promise<Boolean> {
+    async registerLocalUser(userData: RegisterUserInput): Promise<string> {
         const hashResult = await hashPassword(userData.password, bcryptConstants.saltRounds);
         userData.password = hashResult;
-        await this.usersService.createOne(userData);
-        return true;
+        const createdUser = await this.usersService.createOne(userData);
+        return createdUser.id;
     }
 }
