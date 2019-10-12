@@ -30,6 +30,11 @@ export class OrdersResolver {
         return (await this.ordersService.createOne({ ...dto, user: user.id })).id;
     }
 
+    @Query(returns => [Order], { nullable: true })
+    async getMyOrders(@CurrentUser() user: User): Promise<Order[]> {
+        return await this.ordersService.findMultiple({ user: user.id });
+    }
+
     @Query(returns => Order, { nullable: true })
     async getOrderById(@Args('id') id: string): Promise<Order> {
         return await this.ordersService.findOneById(id);
