@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UserLocationService } from './user-locations.service';
+import { UserLocationsService } from './user-locations.service';
+import { UserLocationsResolver } from './user-locations.resolver';
 import { Product } from '../products/product';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { DatabaseModule } from '../database/database.module';
 import { GraphqlModule } from '../graphql/graphql.module';
+import { BuildingsModule } from '../buildings/buildings.module';
 import { UserLocation } from './user-location';
 
 @Module({
@@ -13,8 +15,9 @@ import { UserLocation } from './user-location';
     TypegooseModule.forFeature([
       UserLocation,
     ]),
+    BuildingsModule,
   ],
-  providers: [UserLocationService],
-  exports: [UserLocationService]
+  providers: [UserLocationsService, UserLocationsResolver],
+  exports: [UserLocationsService]
 })
 export class UserLocationModule {}
