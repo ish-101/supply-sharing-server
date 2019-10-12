@@ -17,7 +17,7 @@ export class Order extends Typegoose {
     @prop({ ref: Product, required: true })
     product: Ref<Product>;
 
-    @Field()
+    @Field({ nullable: true })
     @prop({ required: true })
     quantity: number;
 
@@ -26,6 +26,6 @@ export class Order extends Typegoose {
     user_location: Ref<UserLocation>;
 
     @Field()
-    @prop({ required: true, default: Date.now() })
+    @prop({ default: Date.now() })
     date_created: Date;
 };

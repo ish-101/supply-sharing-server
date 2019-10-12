@@ -1,4 +1,4 @@
-import { Resolver, ResolveProperty, Query, Parent, Args } from '@nestjs/graphql';
+import { Resolver, ResolveProperty, Query, Mutation, Parent, Args } from '@nestjs/graphql';
 import { UsersService } from '../users/users.service';
 import { Order } from './order';
 import { User } from '../users/user';
@@ -7,7 +7,12 @@ import { Product } from '../products/product';
 import { ProductsService } from '../products/products.service';
 import { UserLocation } from '../user-locations/user-location';
 import { UserLocationsService } from '../user-locations/user-locations.service';
+import { CreateOrderInput } from './dto/create-order.input';
+import { ValidationPipe, UseGuards } from '@nestjs/common';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
+@UseGuards(GqlAuthGuard)
 @Resolver(of => Order)
 export class OrdersResolver {
     constructor(
@@ -16,6 +21,14 @@ export class OrdersResolver {
         private readonly productsService: ProductsService,
         private readonly userLocationService: UserLocationsService,
     ) {}
+
+    @Mutation(returns => String)
+    async createOrder(
+        @CurrentUser() user: User,
+        @Args('data', new ValidationPipe()) dto: CreateOrderInput
+    ): Promise<string> {
+        return (await this.ordersService.createOne({ ...dto, user: user.id })).id;
+    }
 
     @Query(returns => Order, { nullable: true })
     async getOrderById(@Args('id') id: string): Promise<Order> {

@@ -15,7 +15,7 @@ export class RegisterUserInput implements Partial<User> {
 
     @Validate(IsEqual, ['email'])
     @Field()
-    confirmEmail: string;
+    confirm_email: string;
 
     @Field()
     username: string;
