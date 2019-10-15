@@ -40,13 +40,4 @@ export class UserLocationsResolver {
     }
     return null;
   }
-  /*
-  @Mutation(returns => String, { nullable: true })
-  async createAndJoinHome(
-    @CurrentUser() user: User,
-    @Args('personal_name') personal_name: string,
-    @Args('data', new ValidationPipe()) data: CreateBuildingInput
-  ): Promise<string> {
-    return null;
-  }*/
 }

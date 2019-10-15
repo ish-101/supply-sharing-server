@@ -1,9 +1,9 @@
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Typegoose, Ref, prop } from '@hasezoey/typegoose';
 
-import { User } from '../users/user'
+import { User } from '../users/user';
 
-import { Building } from '../buildings/building'
+import { Building } from '../buildings/building';
 
 @ObjectType()
 export class UserLocation extends Typegoose {
@@ -18,11 +18,11 @@ export class UserLocation extends Typegoose {
     @prop({ _id: false, required: false })
     room_number: string;
 
+    @Field(type => Building)
+    @prop({ required: true, ref: Building })
+    building: Ref<Building>;
+
     @Field(type => User)
     @prop({ required: true, ref: User })
     user: Ref<User>;
-
-    @Field(type => Building)
-    @prop({ required: true, ref: User })
-    building: Ref<Building>;
 };
