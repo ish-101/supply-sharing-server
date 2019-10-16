@@ -1,6 +1,7 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, ResolveProperty, Mutation, Query, Args, Parent } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
+import { ObjectID } from 'mongodb';
 
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -9,6 +10,7 @@ import { UserLocation } from './user-location';
 import { UserLocationsService } from './user-locations.service';
 
 import { BuildingsService } from '../buildings/buildings.service';
+import { Building } from '../buildings/building';
 import { CreateBuildingInput } from '../buildings/dto/create-building.input';
 
 import { User } from '../users/user';
@@ -39,5 +41,12 @@ export class UserLocationsResolver {
       })).id;
     }
     return null;
+  }
+
+  @ResolveProperty('building', () => Building, { nullable: true })
+  async building(
+    @Parent() userLocation: UserLocation,
+  ): Promise<Building> {
+    return await this.buildingsService.findOneById(userLocation.building);
   }
 }

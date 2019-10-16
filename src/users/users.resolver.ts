@@ -2,6 +2,7 @@ import { Resolver, ResolveProperty, Query, Parent } from '@nestjs/graphql';
 import { User } from './user';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
+import { ObjectID } from 'mongodb';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { UsersService } from './users.service';
 
@@ -23,10 +24,12 @@ export class UsersResolver {
         return await this.usersService.findOneById(user.id);
     }
 
-    @ResolveProperty('user_locations', () => [UserLocation])
-    async getLocations(
+    @ResolveProperty('locations', () => [UserLocation])
+    async locations(
       @Parent() user: User,
     ): Promise<UserLocation[]> {
-      return await this.userLocationsService.getByUser(user.id);
+      return await this.userLocationsService.findMultiple({
+        user: new ObjectID(user.id)
+      });
     }
 }
