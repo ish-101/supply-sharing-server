@@ -11,7 +11,7 @@ import { UserLocationsService } from './user-locations.service';
 
 import { BuildingsService } from '../buildings/buildings.service';
 import { Building } from '../buildings/building';
-import { CreateBuildingInput } from '../buildings/dto/create-building.input';
+import { CreateHomeInput } from '../buildings/dto/create-home.input';
 
 import { User } from '../users/user';
 
@@ -36,8 +36,30 @@ export class UserLocationsResolver {
       return (await this.userLocationsService.createOne({
         personal_name: personal_name,
         room_number: room_number,
-        user: user.id,
-        building: building_id,
+        user: new ObjectID(user.id),
+        building: new ObjectID(building_id),
+      })).id;
+    }
+    return null;
+  }
+
+  @Mutation(returns => String, { nullable: true })
+  async createHomeUserLocation(
+    @CurrentUser() user: User,
+    @Args('home_data', new ValidationPipe()) home_data: CreateHomeInput,
+    @Args('personal_name') personal_name: string,
+  ): Promise<string> {
+    var building_id = (await this.buildingsService.createBuilding({
+      ...home_data,
+      type: 'home',
+      outside_accessible: true,
+    })).id;
+    if(building_id != null)
+    {
+      return (await this.userLocationsService.createOne({
+        personal_name: personal_name,
+        user: new ObjectID(user.id),
+        building: new ObjectID(building_id),
       })).id;
     }
     return null;
