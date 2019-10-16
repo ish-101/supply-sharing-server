@@ -27,5 +27,5 @@ export class User extends Typegoose {
     verified: boolean;
 
     @Field(type => [UserLocation])
-    user_locations: UserLocation[];
+    locations: UserLocation[];
 }
