@@ -1,7 +1,6 @@
-import { Resolver, ResolveProperty, Mutation, Query, Args, Parent } from '@nestjs/graphql';
+import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
-import { ObjectID } from 'mongodb';
 
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -10,8 +9,7 @@ import { UserLocation } from './user-location';
 import { UserLocationsService } from './user-locations.service';
 
 import { BuildingsService } from '../buildings/buildings.service';
-import { Building } from '../buildings/building';
-import { CreateHomeInput } from '../buildings/dto/create-home.input';
+import { CreateBuildingInput } from '../buildings/dto/create-building.input';
 
 import { User } from '../users/user';
 
@@ -36,39 +34,19 @@ export class UserLocationsResolver {
       return (await this.userLocationsService.createOne({
         personal_name: personal_name,
         room_number: room_number,
-        user: new ObjectID(user.id),
-        building: new ObjectID(building_id),
+        user: user.id,
+        building: building_id,
       })).id;
     }
     return null;
   }
-
+  /*
   @Mutation(returns => String, { nullable: true })
-  async createHomeUserLocation(
+  async createAndJoinHome(
     @CurrentUser() user: User,
-    @Args('home_data', new ValidationPipe()) home_data: CreateHomeInput,
     @Args('personal_name') personal_name: string,
+    @Args('data', new ValidationPipe()) data: CreateBuildingInput
   ): Promise<string> {
-    var building_id = (await this.buildingsService.createBuilding({
-      ...home_data,
-      type: 'home',
-      outside_accessible: true,
-    })).id;
-    if(building_id != null)
-    {
-      return (await this.userLocationsService.createOne({
-        personal_name: personal_name,
-        user: new ObjectID(user.id),
-        building: new ObjectID(building_id),
-      })).id;
-    }
     return null;
-  }
-
-  @ResolveProperty('building', () => Building, { nullable: true })
-  async building(
-    @Parent() userLocation: UserLocation,
-  ): Promise<Building> {
-    return await this.buildingsService.findOneById(userLocation.building);
-  }
+  }*/
 }

@@ -28,8 +28,4 @@ export class Order extends Typegoose {
     @Field()
     @prop({ default: Date.now() })
     date_created: Date;
-
-    @Field()
-    @prop({ default: false })
-    fulfilled: boolean;
 };

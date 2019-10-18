@@ -6,13 +6,10 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { User } from './user';
 import { UsersResolver } from './users.resolver';
 
-import { UserLocationsModule } from '../user-locations/user-locations.module';
-
 @Module({
   imports: [
     GraphqlModule,
     DatabaseModule,
-    UserLocationsModule,
     TypegooseModule.forFeature([
       User,
     ]),

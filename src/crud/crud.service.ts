@@ -14,11 +14,11 @@ export class CrudService<modelType> {
         return await this.model.find(where);
     }
 
-    async findOneById(id: any): Promise<modelType> {
+    async findOneById(id: string): Promise<modelType> {
         return await this.model.findById(id);
     }
 
-    async updateOneById(id: any, data: any): Promise<any> {
+    async updateOneById(id: string, data: any): Promise<any> {
         return await this.model.findByIdAndUpdate(id, data, { new: true });
     }
 

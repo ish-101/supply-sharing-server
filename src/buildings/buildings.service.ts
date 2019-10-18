@@ -12,7 +12,7 @@ export class BuildingsService extends CrudService<Building> {
   }
 
   // what kind of services would we need?
-  async createBuilding(buildingData: any): Promise<Building> {
+  async createBuilding(buildingData: CreateBuildingInput): Promise<Building> {
     return await this.createOne(buildingData);
   }
 }
