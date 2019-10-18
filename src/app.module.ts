@@ -4,7 +4,7 @@ import { UsersModule } from './users/users.module';
 import { BuildingsModule } from './buildings/buildings.module';
 import { DotenvModule } from './dotenv/dotenv.module';
 import { OrdersModule } from './orders/orders.module';
-import { UserLocationModule } from './user-locations/user-locations.module';
+import { UserLocationsModule } from './user-locations/user-locations.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { UserLocationModule } from './user-locations/user-locations.module';
     UsersModule,
     BuildingsModule,
     OrdersModule,
-    UserLocationModule,
+    UserLocationsModule,
   ],
 })
 export class AppModule {}

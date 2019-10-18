@@ -20,4 +20,4 @@ import { UserLocation } from './user-location';
   providers: [UserLocationsService, UserLocationsResolver],
   exports: [UserLocationsService]
 })
-export class UserLocationModule {}
+export class UserLocationsModule {}
