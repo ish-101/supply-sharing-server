@@ -7,7 +7,7 @@ import { OrdersService } from './orders.service';
 import { OrdersResolver } from './orders.resolver';
 import { UsersModule } from '../users/users.module';
 import { ProductsModule } from '../products/products.module';
-import { UserLocationsModule } from '../user-locations/user-locations.module';
+import { UserLocationModule } from '../user-locations/user-locations.module';
 
 @Module({
     imports: [
