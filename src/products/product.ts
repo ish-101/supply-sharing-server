@@ -9,7 +9,7 @@ export class Product extends Typegoose {
     @Field()
     @prop({ required: true })
     list_price: number;
-
+  
     @prop({ required: true })
     default_average_price: number;
 
