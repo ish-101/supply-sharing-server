@@ -26,7 +26,6 @@ export class OrdersService extends CrudService<Order> {
                 average_price: { $avg: { $divide: ["$total_price", "$quantity"] } },
             } }
         ]);
-        console.log(aggregate);
         if (aggregate && aggregate[0]) {
             return aggregate[0].average_price;
         } else {
