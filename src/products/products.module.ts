@@ -4,6 +4,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { DatabaseModule } from '../database/database.module';
 import { GraphqlModule } from '../graphql/graphql.module';
 import { ProductsService } from './products.service';
+import { ProductsResolver } from './products.resolver';
 
 @Module({
     imports: [
@@ -13,7 +14,7 @@ import { ProductsService } from './products.service';
             Product,
         ]),
     ],
-    providers: [ProductsService],
+    providers: [ProductsService, ProductsResolver],
     exports: [ProductsService]
 })
 export class ProductsModule {}
