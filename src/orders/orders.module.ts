@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { Order } from './order';
 import { GraphqlModule } from '../graphql/graphql.module';
 import { DatabaseModule } from '../database/database.module';
@@ -14,12 +14,13 @@ import { UserLocationModule } from '../user-locations/user-locations.module';
         GraphqlModule,
         DatabaseModule,
         UsersModule,
-        ProductsModule,
-        UserLocationModule,
+        forwardRef(() => ProductsModule),
+        UserLocationsModule,
         TypegooseModule.forFeature([
             Order,
         ]),
     ],
     providers: [OrdersService, OrdersResolver],
+    exports: [OrdersService]
 })
 export class OrdersModule {}
