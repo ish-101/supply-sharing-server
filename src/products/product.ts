@@ -6,14 +6,13 @@ export class Product extends Typegoose {
     @Field(type => ID)
     id: string;
 
+    @Field()
+    @prop({ required: true })
+    list_price: number;
+  
+    @prop({ required: true })
+    default_average_price: number;
+
     @Field({ nullable: true })
-    @prop({ required: true })
-    quantity: number;
-
-    @Field()
-    avg_price: string;
-
-    @Field()
-    @prop({ required: true })
-    list_price: string
+    average_price: number;
 };

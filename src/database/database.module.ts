@@ -15,6 +15,7 @@ import { DotenvService } from '../dotenv/dotenv.service';
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useCreateIndex: true,
+                useFindAndModify: false,
             }),
             inject: [ConfigService]
           })
