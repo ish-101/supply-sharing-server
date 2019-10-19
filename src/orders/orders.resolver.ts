@@ -32,7 +32,7 @@ export class OrdersResolver {
 
     @Mutation(returns => Boolean)
     async fulfillOrder(
-        @Args('id') id: String,
+        @Args('id') id: string,
         @Args('total_price') total_price: Number
     ): Promise<boolean> {
         const order: Order = await this.ordersService.findOneById(id);
