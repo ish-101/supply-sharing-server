@@ -1,5 +1,5 @@
 import { ObjectType, Field, ID } from 'type-graphql';
-import { Typegoose } from '@hasezoey/typegoose';
+import { Typegoose, prop } from '@hasezoey/typegoose';
 
 @ObjectType()
 export class Product extends Typegoose {
@@ -14,7 +14,6 @@ export class Product extends Typegoose {
     avg_price: string;
 
     @Field()
-    @prop({nullable:true})
-    market_price: string
-
+    @prop({ required: true })
+    list_price: string
 };
