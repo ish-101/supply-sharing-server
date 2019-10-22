@@ -43,6 +43,16 @@ export class Building extends Typegoose
     @prop({ required: false })
     gender: string;
 
+    @Field(type => [Building])
+    nearby_buildings: Building[];
+
+    @Field()
+    @prop({ required: true })
+    longitude: number;
+
+    @Field()
+    @prop({ required: true })
+    latitude: number;
     // further research will have to be done to figure out how to store
     // the location, as generated from the address
 };

@@ -35,6 +35,7 @@
         "graphql": "^14.5.7",
         "graphql-tag-pluck": "^0.8.5",
         "locationiq": "0.0.3",
+        "mapbox": "^1.0.0-beta10",
         "mongoose": "^5.7.1",
         "nestjs-typegoose": "^5.2.1",
         "passport": "^0.4.0",

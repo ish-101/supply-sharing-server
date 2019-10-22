@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, ResolveProperty, Mutation, Query, Args } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
 
@@ -19,6 +19,17 @@ export class BuildingsResolver {
   async createBuilding(
     @Args('data', new ValidationPipe()) data: CreateBuildingInput
   ): Promise<string> {
-    return (await this.buildingsService.createBuilding(data)).id;
+    var building = await this.buildingsService.createBuilding(data);
+    if(building != null)
+      return building.id;
+    return null;
+  }
+
+  @Mutation(returns => Boolean, { nullable: false})
+  async confirmBuilding(
+    @Args('building_id') building_id: string,
+    @Args('confirm') confirm: boolean
+  ): Promise<boolean> {
+    return null;
   }
 }

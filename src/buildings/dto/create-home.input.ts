@@ -22,4 +22,10 @@ export class CreateHomeInput implements Partial<Building> {
   @Length(5, 5)
   @Field()
   zip_code: string;
+
+  @Field()
+  latitude: number;
+
+  @Field()
+  longitude: number;
 }

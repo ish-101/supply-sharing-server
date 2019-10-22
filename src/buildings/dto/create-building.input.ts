@@ -28,8 +28,7 @@ export class CreateBuildingInput implements Partial<Building> {
   @Field()
   zip_code: string;
 
-  @Field()
-  @Matches(/apartment|dorm/gi)
+  @Field() // either apartment or dorm
   type: string;
 
   @Field()
@@ -38,4 +37,10 @@ export class CreateBuildingInput implements Partial<Building> {
   @Validate(IsGendered)
   @Field({ nullable: true })
   gender: string;
+
+  @Field()
+  latitude: number;
+
+  @Field()
+  longitude: number;
 }
