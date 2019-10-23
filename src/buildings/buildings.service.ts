@@ -39,14 +39,39 @@ export class BuildingsService extends CrudService<Building> {
     }));
   }
 
+  // here's a plan, we narrow down buildings by a 50 mile radius through clever
+  // querying of the database, then sort those buildings...
+  async getXClosestBuildings(
+    latitude: number,
+    longitude: number,
+    x: number
+  ): Promise<Building[]> {
+    // here, we should query in a 50 mile radius or something
+    var searchBuildings = await this.findAll();
+
+    var self = this;
+    searchBuildings.sort(function(a_building, b_building) {
+      var a_distance = self.getDistanceBetween(
+        latitude, longitude, a_building,
+      );
+      var b_distance =  self.getDistanceBetween(
+        latitude, longitude, b_building,
+      );
+      if(a_distance > b_distance) return 1;
+      if(a_distance < b_distance) return -1;
+      return 0;
+    });
+    return searchBuildings.slice(0, x);
+  }
+
   getAddressString(buildingData: any): string {
     return `${ buildingData.street_address }, ${ buildingData.city }, ${ buildingData.state } ${ buildingData.zip_code }, ${ buildingData.country }`;
   }
 
-  getDistanceBetween(from_building: Building, to_building: Building): number {
+  getDistanceBetween(latitude: number, longitude: number, to_building: Building): number {
     this.converter.setPoint('from', {
-      latitude: from_building.latitude,
-      longitude: from_building.longitude,
+      latitude: latitude,
+      longitude: longitude,
     });
     this.converter.setPoint('to', {
       latitude: to_building.latitude,

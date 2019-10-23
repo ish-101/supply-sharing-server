@@ -1,6 +1,7 @@
 import { Resolver, ResolveProperty, Mutation, Query, Args } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
+import { ObjectID } from 'mongodb';
 
 import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
 
@@ -25,11 +26,28 @@ export class BuildingsResolver {
     return null;
   }
 
-  @Mutation(returns => Boolean, { nullable: false})
-  async confirmBuilding(
+  @Query(returns => [Building], { nullable: true })
+  async getXNearestBuildingsByLocation(
+    @Args('latitude') latitude: number,
+    @Args('longitude') longitude: number,
+    @Args('x') x: number,
+  ): Promise<Building[]> {
+    return await this.buildingsService.getXClosestBuildings(
+      latitude, longitude, x,
+    );
+  }
+  @Query(returns => [Building], { nullable: true })
+  async getXNearestBuildingsByBuilding(
     @Args('building_id') building_id: string,
-    @Args('confirm') confirm: boolean
-  ): Promise<boolean> {
-    return null;
+    @Args('x') x: number,
+  ): Promise<Building[]> {
+    var building = await this.buildingsService.findOneById(
+      new ObjectID(building_id)
+    );
+    return await this.buildingsService.getXClosestBuildings(
+      building.latitude,
+      building.longitude,
+      x,
+    );
   }
 }

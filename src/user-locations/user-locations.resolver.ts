@@ -75,36 +75,6 @@ export class UserLocationsResolver {
     return null;
   }
 
-  @Query(returns => [Building], { nullable: true })
-  async getXClosestBuildings(
-    @Args('building_id') building_id: string,
-    @Args('x') x: number,
-  ): Promise<Building[]> {
-    //get building
-    var building = await this.buildingsService.findOneById(
-      new ObjectID(building_id)
-    );
-    var searchBuildings = await this.buildingsService.findMultiple({
-      zip_code: building.zip_code,
-    });
-
-    var self = this;
-    searchBuildings.sort(function(a_building, b_building) {
-      var a_distance = self.buildingsService.getDistanceBetween(
-        building,
-        a_building,
-      );
-      var b_distance =  self.buildingsService.getDistanceBetween(
-        building,
-        b_building,
-      );
-      if(a_distance > b_distance) return 1;
-      if(a_distance < b_distance) return -1;
-      return 0;
-    });
-    return searchBuildings.slice(0, x + 1);
-  }
-
   @ResolveProperty('building', () => Building, { nullable: true })
   async building(
     @Parent() userLocation: UserLocation,

@@ -18,6 +18,10 @@ export class CrudService<modelType> {
         return await this.model.findById(id);
     }
 
+    async findAll(): Promise<modelType[]> {
+      return await this.model.find({});
+    }
+
     async updateOneById(id: any, data: any): Promise<any> {
         return await this.model.findByIdAndUpdate(id, data, { new: true });
     }
