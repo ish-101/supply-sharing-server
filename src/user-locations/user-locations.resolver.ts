@@ -49,11 +49,21 @@ export class UserLocationsResolver {
     @Args('home_data', new ValidationPipe()) home_data: CreateHomeInput,
     @Args('personal_name') personal_name: string,
   ): Promise<string> {
-    var building_id = (await this.buildingsService.createBuilding({
+    var building_id = null;
+    // either we ask for lat/long or we don't.
+    // i'm thinking we don't, and just make sure the the user sees
+    // and has the option to delete it after the fact/update it
+    var address_string = this.buildingsService.getAddressString(home_data);
+    var latLong = await this.buildingsService.geocodeForward(address_string);
+
+    building_id = (await this.buildingsService.createBuilding({
       ...home_data,
       type: 'home',
       outside_accessible: true,
+      latitude: latLong.latitude,
+      longitude: latLong.longitude,
     })).id;
+
     if(building_id != null)
     {
       return (await this.userLocationsService.createOne({
@@ -63,6 +73,36 @@ export class UserLocationsResolver {
       })).id;
     }
     return null;
+  }
+
+  @Query(returns => [Building], { nullable: true })
+  async getXClosestBuildings(
+    @Args('building_id') building_id: string,
+    @Args('x') x: number,
+  ): Promise<Building[]> {
+    //get building
+    var building = await this.buildingsService.findOneById(
+      new ObjectID(building_id)
+    );
+    var searchBuildings = await this.buildingsService.findMultiple({
+      zip_code: building.zip_code,
+    });
+
+    var self = this;
+    searchBuildings.sort(function(a_building, b_building) {
+      var a_distance = self.buildingsService.getDistanceBetween(
+        building,
+        a_building,
+      );
+      var b_distance =  self.buildingsService.getDistanceBetween(
+        building,
+        b_building,
+      );
+      if(a_distance > b_distance) return 1;
+      if(a_distance < b_distance) return -1;
+      return 0;
+    });
+    return searchBuildings.slice(0, x + 1);
   }
 
   @ResolveProperty('building', () => Building, { nullable: true })

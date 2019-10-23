@@ -34,6 +34,7 @@
         "dotenv": "^8.1.0",
         "graphql": "^14.5.7",
         "graphql-tag-pluck": "^0.8.5",
+        "lat-long-distance": "^1.0.1",
         "locationiq": "0.0.3",
         "mapbox": "^1.0.0-beta10",
         "mongoose": "^5.7.1",

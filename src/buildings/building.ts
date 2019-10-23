@@ -43,9 +43,6 @@ export class Building extends Typegoose
     @prop({ required: false })
     gender: string;
 
-    @Field(type => [Building])
-    nearby_buildings: Building[];
-
     @Field()
     @prop({ required: true })
     longitude: number;
