@@ -8,7 +8,7 @@ export class Building extends Typegoose
     id: string;
 
     @Field({ nullable: true })
-    @prop()
+    @prop({ _id: false })
     name: string
 
     @Field()

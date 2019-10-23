@@ -29,7 +29,6 @@ export class BuildingsService extends CrudService<Building> {
     var self = this;
     return (new Promise(function(resolve, reject) {
       self.mapboxClient.geocodeForward(address_string).then(function(res) {
-        console.log(res.entity);
         resolve({
           latitude: res.entity.features[0].center[1],
           longitude: res.entity.features[0].center[0],

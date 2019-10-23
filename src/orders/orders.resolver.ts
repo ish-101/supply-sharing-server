@@ -30,6 +30,20 @@ export class OrdersResolver {
         return (await this.ordersService.createOne({ ...dto, user: user.id })).id;
     }
 
+    @Mutation(returns => Boolean)
+    async fulfillOrder(
+        @Args('id') id: string,
+        @Args('total_price') total_price: Number
+    ): Promise<boolean> {
+        const order: Order = await this.ordersService.findOneById(id);
+        if (!order.fulfilled) {
+            await this.ordersService.updateOneById(id, { total_price, fulfilled: true });
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Query(returns => [Order], { nullable: true })
     async getMyOrders(@CurrentUser() user: User): Promise<Order[]> {
         return await this.ordersService.findMultiple({ user: user.id });
