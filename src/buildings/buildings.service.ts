@@ -52,10 +52,11 @@ export class BuildingsService extends CrudService<Building> {
       lat: latitude,
       lon: longitude,
     };
-    var topLat = moveTo(location, { heading: 360, distance: radius * 1000 }).lat;
-    var botLat = moveTo(location, { heading: 180, distance: radius * 1000 }).lat;
-    var leftLong = moveTo(location, { heading: 270, distance: radius * 1000 }).lon;
-    var rightLong = moveTo(location, { heading: 90, distance: radius * 1000 }).lon;
+    var distance = radius * 1000; // kms to meters
+    var topLat = moveTo(location, { heading: 360, distance: distance }).lat;
+    var botLat = moveTo(location, { heading: 180, distance: distance }).lat;
+    var leftLong = moveTo(location, { heading: 270, distance: distance }).lon;
+    var rightLong = moveTo(location, { heading: 90, distance: distance }).lon;
     // here, we should query in a 50 mile radius or something
     var searchBuildings = await this.findMultiple({
       $and: [{
@@ -108,7 +109,11 @@ export class BuildingsService extends CrudService<Building> {
     return `${ buildingData.street_address }, ${ buildingData.city }, ${ buildingData.state } ${ buildingData.zip_code }, ${ buildingData.country }`;
   }
 
-  getDistanceBetween(latitude: number, longitude: number, to_building: Building): number {
+  getDistanceBetween(
+    latitude: number,
+    longitude: number,
+    to_building: Building
+  ): number {
     this.converter.setPoint('from', {
       latitude: latitude,
       longitude: longitude,
