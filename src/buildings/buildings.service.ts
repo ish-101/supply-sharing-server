@@ -6,6 +6,7 @@ import { Building } from './building';
 import { CreateBuildingInput } from './dto/create-building.input';
 import * as MapboxClient from 'mapbox';
 import * as LatLongDistance from 'lat-long-distance';
+import { moveTo } from 'geolocation-utils';
 
 @Injectable()
 export class BuildingsService extends CrudService<Building> {
@@ -44,10 +45,49 @@ export class BuildingsService extends CrudService<Building> {
   async getXClosestBuildings(
     latitude: number,
     longitude: number,
-    x: number
+    radius: number,
+    x: number,
   ): Promise<Building[]> {
+    var location = {
+      lat: latitude,
+      lon: longitude,
+    };
+    var topLat = moveTo(location, { heading: 360, distance: radius * 1000 }).lat;
+    var botLat = moveTo(location, { heading: 180, distance: radius * 1000 }).lat;
+    var leftLong = moveTo(location, { heading: 270, distance: radius * 1000 }).lon;
+    var rightLong = moveTo(location, { heading: 90, distance: radius * 1000 }).lon;
     // here, we should query in a 50 mile radius or something
-    var searchBuildings = await this.findAll();
+    var searchBuildings = await this.findMultiple({
+      $and: [{
+        $or: [{
+          type: 'apartment',
+        }, {
+          type: 'dorm',
+        }]
+      }, {
+        $and: [{
+          $and: [{
+            latitude: {
+              $gte: botLat
+            }
+          }, {
+            latitude: {
+              $lte: topLat
+            }
+          }]
+        }, {
+          $and: [{
+            longitude: {
+              $gte: leftLong,
+            }
+          }, {
+            longitude: {
+              $lte: rightLong,
+            }
+          }]
+        }],
+      }],
+    });
 
     var self = this;
     searchBuildings.sort(function(a_building, b_building) {

@@ -30,15 +30,17 @@ export class BuildingsResolver {
   async getXNearestBuildingsByLocation(
     @Args('latitude') latitude: number,
     @Args('longitude') longitude: number,
+    @Args('radius') radius: number,
     @Args('x') x: number,
   ): Promise<Building[]> {
     return await this.buildingsService.getXClosestBuildings(
-      latitude, longitude, x,
+      latitude, longitude, radius, x,
     );
   }
   @Query(returns => [Building], { nullable: true })
   async getXNearestBuildingsByBuilding(
     @Args('building_id') building_id: string,
+    @Args('radius') radius: number,
     @Args('x') x: number,
   ): Promise<Building[]> {
     var building = await this.buildingsService.findOneById(
@@ -47,7 +49,7 @@ export class BuildingsResolver {
     return await this.buildingsService.getXClosestBuildings(
       building.latitude,
       building.longitude,
-      x,
+      radius, x,
     );
   }
 }
