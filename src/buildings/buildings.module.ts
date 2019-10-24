@@ -5,9 +5,11 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { Building } from './building';
 import { BuildingsService } from './buildings.service';
 import { BuildingsResolver } from './buildings.resolver';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
     imports: [
+        ConfigModule,
         GraphqlModule,
         DatabaseModule,
         TypegooseModule.forFeature([

@@ -26,6 +26,7 @@ export class CrudService<modelType> {
         return await this.model.findByIdAndUpdate(id, data, { new: true });
     }
 
+    // returns instance, else null
     async deleteOneById(id: string): Promise<any> {
         return await this.model.findByIdAndDelete(id);
     }

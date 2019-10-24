@@ -43,6 +43,27 @@ export class UserLocationsResolver {
     return null;
   }
 
+  @Mutation(returns => Boolean, { nullable: false })
+  async deleteUserHome(
+    @Args('user_location_id') user_location_id: string,
+  ): Promise<boolean> {
+    var userLocation = await this.userLocationsService.deleteOneById(user_location_id);
+    if(userLocation != null)
+    {
+      var building = await this.buildingsService.deleteOneById(userLocation.building);
+      return (building != null ? true : false);
+    }
+    return false;
+  }
+
+  @Mutation(returns => Boolean, { nullable: false })
+  async deleteUserLocation(
+    @Args('user_location_id') user_location_id: string,
+  ): Promise<boolean> {
+    var userLocation = await this.userLocationsService.deleteOneById(user_location_id);
+    return (userLocation != null ? true : false);
+  }
+
   @Mutation(returns => String, { nullable: true })
   async createHomeUserLocation(
     @CurrentUser() user: User,

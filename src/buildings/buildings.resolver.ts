@@ -37,6 +37,7 @@ export class BuildingsResolver {
       latitude, longitude, radius, x,
     );
   }
+  
   @Query(returns => [Building], { nullable: true })
   async getXNearestBuildingsByBuilding(
     @Args('building_id') building_id: string,
