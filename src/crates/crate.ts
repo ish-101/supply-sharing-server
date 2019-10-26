@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID } from 'type-graphql';
-import { Typegoose, prop } from '@hasezoey/typegoose';
+import { Typegoose, Ref, prop } from '@hasezoey/typegoose';
+import { Product } from "../products/product";
 
 @ObjectType()
 export class Crate extends Typegoose {

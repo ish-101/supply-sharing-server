@@ -33,4 +33,4 @@ export class OrdersService extends CrudService<Order> {
             return product.default_average_price;
         }
     }
-}   
+}

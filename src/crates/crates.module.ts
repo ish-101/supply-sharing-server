@@ -14,7 +14,7 @@ import { CratesResolver } from './crates.resolver';
       Crate,
     ]),
   ],
-  provide: [CratesService, CratessResolver],
+  providers: [CratesService, CratesResolver],
   exports: [CratesService]
 })
 export class CratesModule {}
