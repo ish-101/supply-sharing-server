@@ -29,7 +29,7 @@ export class UsersResolver {
       @Parent() user: User,
     ): Promise<UserLocation[]> {
       return await this.userLocationsService.findMultiple({
-        user: new ObjectID(user.id)
+        user: new ObjectID(user.id),
       });
     }
 }
