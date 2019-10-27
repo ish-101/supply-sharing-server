@@ -19,10 +19,12 @@ export class CratesResolver {
   async createCrate(
     @Args('product_id') product_id: string,
     @Args('quantity') quantity: number,
+    @Args('default_average_price') default_average_price: number,
   ): Promise<string> {
     return (await this.cratesService.createOne({
       product: new ObjectID(product_id),
       quantity: quantity,
+      default_average_price: default_average_price,
     })).id;
   }
 }

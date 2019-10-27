@@ -15,6 +15,10 @@ export class Crate extends Typegoose {
   @prop({ required: true })
   quantity: number;
 
+  @Field()
+  @prop({ required: true })
+  default_average_price: number;
+
   @Field({ nullable: true })
   average_price: number;
 }
