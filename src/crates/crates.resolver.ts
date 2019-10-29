@@ -32,11 +32,25 @@ export class CratesResolver {
     })).id;
   }
 
+  @Query(returns => Crate, { nullable: true })
+  async getCrate(
+    @Args('id') id: string,
+  ): Promise<Crate> {
+    return await this.cratesService.findOneById(id);
+  }
+
   @Mutation(returns => Boolean, { nullable: false })
   async deleteCrate(
     @Args('id') id: string,
   ): Promise<boolean> {
     var crate = await this.cratesService.deleteOneById(id);
     return (crate != null);
+  }
+
+  @ResolveProperty(returns => Product, { nullable: false })
+  async product(
+    @Parent() crate: Crate
+  ): Promise<Product> {
+    return await this.productsService.findOneById(crate.product);
   }
 }

@@ -27,7 +27,10 @@ export class OrdersResolver {
         @CurrentUser() user: User,
         @Args('data', new ValidationPipe()) dto: CreateOrderInput
     ): Promise<string> {
-        return (await this.ordersService.createOne({ ...dto, user: user.id })).id;
+        return (await this.ordersService.createOne({
+          ...dto,
+          user: user.id
+        })).id;
     }
 
     @Mutation(returns => Boolean)
@@ -37,7 +40,10 @@ export class OrdersResolver {
     ): Promise<boolean> {
         const order: Order = await this.ordersService.findOneById(id);
         if (!order.fulfilled) {
-            await this.ordersService.updateOneById(id, { total_price, fulfilled: true });
+            await this.ordersService.updateOneById(id, {
+              total_price,
+              fulfilled: true
+            });
             return true;
         } else {
             return false;
