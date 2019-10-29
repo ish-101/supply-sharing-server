@@ -11,7 +11,7 @@ import { ProductsResolver } from './products.resolver';
     imports: [
         GraphqlModule,
         DatabaseModule,
-        CratesModule,
+        forwardRef(() => CratesModule),
         TypegooseModule.forFeature([
             Product,
         ]),

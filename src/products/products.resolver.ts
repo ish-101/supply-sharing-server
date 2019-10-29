@@ -19,7 +19,7 @@ export class ProductsResolver {
     private readonly cratesService: CratesService,
   ) {}
 
-  @Query(returns => Product)
+  @Query(returns => Product, { nullable: true })
   async getProductById(
     @Args('id') id: string
   ): Promise<Product> {
@@ -37,8 +37,10 @@ export class ProductsResolver {
   async deleteProduct(
     @Args('product_id') product_id: string,
   ): Promise<boolean> {
-    var product = await this.productsService.deleteOneById(product_id);
-    return (product != null ? true : false);
+    await this.cratesService.deleteByProduct(product_id);
+    return (
+      await this.productsService.deleteOneById(product_id) != null
+    );
   }
 
   @ResolveProperty('crates', () => [Crate])

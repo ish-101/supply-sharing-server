@@ -18,12 +18,12 @@ export class CrudService<modelType> {
         return await this.model.findById(id);
     }
 
-    async updateOneById(id: any, data: any): Promise<any> {
+    async updateOneById(id: any, data: any): Promise<modelType> {
         return await this.model.findByIdAndUpdate(id, data, { new: true });
     }
 
     // returns instance, else null
-    async deleteOneById(id: string): Promise<any> {
+    async deleteOneById(id: any): Promise<modelType> {
         return await this.model.findByIdAndDelete(id);
     }
 }
