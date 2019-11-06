@@ -18,6 +18,14 @@ type Building {
   latitude: Float!
 }
 
+type Crate {
+  id: ID!
+  product: Product!
+  quantity: Float!
+  default_average_price: Float!
+  average_price: Float
+}
+
 input CreateBuildingInput {
   name: String!
   street_address: String!
@@ -41,9 +49,15 @@ input CreateHomeInput {
 }
 
 input CreateOrderInput {
-  product: String!
+  crate: String!
   quantity: Float!
   user_location: String!
+}
+
+input CreateProductInput {
+  name: String!
+  description: String!
+  default_average_price: Float!
 }
 
 """
@@ -53,13 +67,16 @@ scalar DateTime
 
 type Mutation {
   createUserLocation(building_id: String!, room_number: String!, personal_name: String!): String
-  deleteUserHome(user_location_id: String!): Boolean!
-  deleteUserLocation(user_location_id: String!): Boolean!
   createHomeUserLocation(personal_name: String!, home_data: CreateHomeInput!): String
+  deleteUserLocation(user_location_id: String!): Boolean!
+  deleteUserHome(user_location_id: String!): Boolean!
   createBuilding(data: CreateBuildingInput!): String
   registerUser(data: RegisterUserInput!): String!
   placeOrder(data: CreateOrderInput!): String!
-  fulfillOrder(total_price: Float!, id: String!): Boolean!
+  createProduct(data: CreateProductInput!): String
+  deleteProduct(product_id: String!): Boolean!
+  createCrate(default_average_price: Float!, quantity: Float!, product_id: String!): String
+  deleteCrate(id: String!): Boolean!
 }
 
 type Name {
@@ -75,19 +92,20 @@ input NameInput {
 type Order {
   id: ID!
   user: User!
-  product: Product!
-  quantity: Float
   user_location: UserLocation!
+  crate: Crate!
+  quantity: Float!
+  charge: Float!
   date_created: DateTime!
-  is_fulfilled: Boolean!
-  total_price: Float
-  date_fulfilled: DateTime
 }
 
 type Product {
   id: ID!
-  list_price: Float!
+  name: String!
+  description: String!
+  default_average_price: Float!
   average_price: Float
+  crates: [Crate!]
 }
 
 type Query {
@@ -97,7 +115,9 @@ type Query {
   login(password: String!, username: String!): String
   getMyOrders: [Order!]
   getOrderById(id: String!): Order
-  getProductById(id: String!): Product!
+  getOrdersByLocation(product_id: String!, user_location_id: String!): [Order!]
+  getProductById(id: String!): Product
+  getCrate(id: String!): Crate
 }
 
 input RegisterUserInput {
@@ -113,7 +133,7 @@ type User {
   name: Name!
   email: String!
   username: String!
-  locations: [UserLocation!]!
+  locations: [UserLocation!]
 }
 
 type UserLocation {

@@ -5,6 +5,7 @@ import { User } from '../users/user';
 import { OrdersService } from './orders.service';
 import { Product } from '../products/product';
 import { ProductsService } from '../products/products.service';
+import { CratesService } from '../crates/crates.service';
 import { UserLocation } from '../user-locations/user-location';
 import { UserLocationsService } from '../user-locations/user-locations.service';
 import { CreateOrderInput } from './dto/create-order.input';
@@ -18,44 +19,22 @@ export class OrdersResolver {
     constructor(
         private readonly ordersService: OrdersService,
         private readonly usersService: UsersService,
-        private readonly productsService: ProductsService,
+        private readonly cratesService: CratesService,
         private readonly userLocationService: UserLocationsService,
     ) {}
 
     @Mutation(returns => String)
     async placeOrder(
-        @CurrentUser() user: User,
-        @Args('data', new ValidationPipe()) dto: CreateOrderInput
+      @CurrentUser() user: User,
+      @Args('data', new ValidationPipe()) data: CreateOrderInput
     ): Promise<string> {
-        return (await this.ordersService.createOne({
-          ...dto,
-          user: user.id
-        })).id;
-    }
+      var average_price = await this.ordersService.findAveragePrice(data.crate);
 
-    @Mutation(returns => Boolean)
-    async fulfillOrder(
-        @Args('id') id: string,
-        @Args('total_price') total_price: Number
-    ): Promise<boolean> {
-        const order: Order = await this.ordersService.findOneById(id);
-<<<<<<< HEAD
-        if (!order.fulfilled) {
-            await this.ordersService.updateOneById(id, {
-              total_price,
-              fulfilled: true
-=======
-        if (!order.is_fulfilled) {
-            await this.ordersService.updateOneById(id, {
-                total_price,
-                is_fulfilled: true,
-                date_fulfilled: Date.now(),
->>>>>>> develop
-            });
-            return true;
-        } else {
-            return false;
-        }
+      return (await this.ordersService.createOne({
+        ...data,
+        user: user.id,
+        charge: average_price,
+      })).id;
     }
 
     @Query(returns => [Order], { nullable: true })
@@ -68,14 +47,20 @@ export class OrdersResolver {
         return await this.ordersService.findOneById(id);
     }
 
+    @Query(returns => [Order], { nullable: true })
+    async getOrdersByLocation(
+      @Args('user_location_id') user_location_id: string,
+      @Args('product_id') product_id: string
+    ): Promise<Order[]> {
+      // find user location by id
+      // get the orders by the user_location
+      // narrow it down by product_id, if provided
+      return null;
+    }
+
     @ResolveProperty('user')
     async user(@Parent() order) : Promise<User> {
         return await this.usersService.findOneById(order.user);
-    }
-
-    @ResolveProperty('product')
-    async product(@Parent() order) : Promise<Product> {
-        return await this.productsService.findOneById(order.product);
     }
 
     @ResolveProperty('user_location')

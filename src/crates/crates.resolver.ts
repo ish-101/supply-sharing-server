@@ -9,12 +9,15 @@ import { ProductsService } from '../products/products.service';
 import { CratesService } from './crates.service';
 import { Crate } from './crate';
 
+import { OrdersService } from '../orders/orders.service';
+
 @UseGuards(GqlAuthGuard)
 @Resolver(of => Crate)
 export class CratesResolver {
   constructor(
     private readonly cratesService: CratesService,
     private readonly productsService: ProductsService,
+    private readonly ordersService: OrdersService,
   ) {}
 
   @Mutation(returns => String, { nullable: true })
@@ -52,5 +55,12 @@ export class CratesResolver {
     @Parent() crate: Crate
   ): Promise<Product> {
     return await this.productsService.findOneById(crate.product);
+  }
+
+  @ResolveProperty(returns => Number, { nullable: false })
+  async average_price(
+    @Parent() crate: Crate
+  ): Promise<number> {
+    return await this.ordersService.findAveragePrice(crate.id);
   }
 }

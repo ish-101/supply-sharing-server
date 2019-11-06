@@ -11,11 +11,14 @@ import { Crate } from '../crates/crate';
 import { CreateProductInput } from './dto/create-product.input';
 import { CratesService } from '../crates/crates.service';
 
+import { OrdersService } from '../orders/orders.service';
+
 @UseGuards(GqlAuthGuard)
 @Resolver(of => Product)
 export class ProductsResolver {
   constructor(
     private readonly productsService: ProductsService,
+    private readonly ordersService: OrdersService,
     private readonly cratesService: CratesService,
   ) {}
 
@@ -64,8 +67,9 @@ export class ProductsResolver {
     var count = 0;
     for(var crate of crates)
     {
+      sum += await this.ordersService.findAveragePrice(crate.id);
+      count ++;
     }
-
-    return 0;
+    return sum / count;
   }
 }
