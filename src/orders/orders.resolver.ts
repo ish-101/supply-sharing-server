@@ -39,10 +39,18 @@ export class OrdersResolver {
         @Args('total_price') total_price: Number
     ): Promise<boolean> {
         const order: Order = await this.ordersService.findOneById(id);
+<<<<<<< HEAD
         if (!order.fulfilled) {
             await this.ordersService.updateOneById(id, {
               total_price,
               fulfilled: true
+=======
+        if (!order.is_fulfilled) {
+            await this.ordersService.updateOneById(id, {
+                total_price,
+                is_fulfilled: true,
+                date_fulfilled: Date.now(),
+>>>>>>> develop
             });
             return true;
         } else {

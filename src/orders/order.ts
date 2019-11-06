@@ -31,9 +31,13 @@ export class Order extends Typegoose {
 
     @Field()
     @prop({ default: false })
-    fulfilled: boolean;
+    is_fulfilled: boolean;
 
     @Field({ nullable: true })
     @prop()
     total_price: number;
+
+    @Field({ nullable: true })
+    @prop()
+    date_fulfilled: Date;
 };
