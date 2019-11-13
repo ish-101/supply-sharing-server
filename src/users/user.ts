@@ -26,6 +26,6 @@ export class User extends Typegoose {
     @prop({ required: true, default: false })
     verified: boolean;
 
-    @Field(type => [UserLocation])
+    @Field(type => [UserLocation], { nullable: true })
     locations: UserLocation[];
 }

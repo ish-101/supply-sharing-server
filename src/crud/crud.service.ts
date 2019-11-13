@@ -19,15 +19,15 @@ export class CrudService<modelType> {
     }
 
     async findAll(): Promise<modelType[]> {
-      return await this.model.find({});
+      return await this.model.find();
     }
 
-    async updateOneById(id: any, data: any): Promise<any> {
+    async updateOneById(id: any, data: any): Promise<modelType> {
         return await this.model.findByIdAndUpdate(id, data, { new: true });
     }
 
     // returns instance, else null
-    async deleteOneById(id: string): Promise<any> {
+    async deleteOneById(id: any): Promise<modelType> {
         return await this.model.findByIdAndDelete(id);
     }
 }

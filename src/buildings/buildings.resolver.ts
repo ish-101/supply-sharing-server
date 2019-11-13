@@ -1,4 +1,4 @@
-import { Resolver, ResolveProperty, Mutation, Query, Args } from '@nestjs/graphql';
+import { Resolver, ResolveProperty, Mutation, Query, Args, Parent } from '@nestjs/graphql';
 import { ValidationPipe } from '@nestjs/common';
 import { UseGuards } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
@@ -37,7 +37,7 @@ export class BuildingsResolver {
       latitude, longitude, radius, x,
     );
   }
-  
+
   @Query(returns => [Building], { nullable: true })
   async getXNearestBuildingsByBuilding(
     @Args('building_id') building_id: string,

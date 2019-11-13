@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Typegoose, prop } from '@hasezoey/typegoose';
+import { Order } from "../orders/order";
 
 @ObjectType()
 export class Building extends Typegoose
@@ -52,4 +53,7 @@ export class Building extends Typegoose
     latitude: number;
     // further research will have to be done to figure out how to store
     // the location, as generated from the address
+
+    @Field(type => [Order], { nullable: true })
+    orders: Order[];
 };
