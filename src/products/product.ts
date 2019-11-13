@@ -17,6 +17,10 @@ export class Product extends Typegoose {
 
     @Field()
     @prop({ required: true })
+    image_url: string;
+
+    @Field()
+    @prop({ required: true })
     default_average_price: number;
 
     @Field({ nullable: true })

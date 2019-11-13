@@ -58,6 +58,7 @@ input CreateOrderInput {
 input CreateProductInput {
   name: String!
   description: String!
+  image_url: String!
   default_average_price: Float!
 }
 
@@ -104,6 +105,7 @@ type Product {
   id: ID!
   name: String!
   description: String!
+  image_url: String!
   default_average_price: Float!
   average_price: Float
   crates: [Crate!]
