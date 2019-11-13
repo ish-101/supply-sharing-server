@@ -16,6 +16,7 @@ type Building {
   gender: String
   longitude: Float!
   latitude: Float!
+  orders: [Order!]
 }
 
 type Crate {
@@ -115,8 +116,9 @@ type Query {
   login(password: String!, username: String!): String
   getMyOrders: [Order!]
   getOrderById(id: String!): Order
-  getOrdersByLocation(product_id: String!, user_location_id: String!): [Order!]
+  getOrdersByBuilding(building_id: String!): [Order!]
   getProductById(id: String!): Product
+  getAllProducts: [Product!]
   getCrate(id: String!): Crate
 }
 

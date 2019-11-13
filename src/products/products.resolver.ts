@@ -29,6 +29,11 @@ export class ProductsResolver {
     return await this.productsService.findOneById(id);
   }
 
+  @Query(returns => [Product], { nullable: true })
+  async getAllProducts(): Promise<Product[]> {
+    return await this.productsService.findAll();
+  }
+
   @Mutation(returns => String, { nullable: true })
   async createProduct(
     @Args('data', new ValidationPipe()) data: CreateProductInput,

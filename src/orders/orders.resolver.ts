@@ -3,9 +3,11 @@ import { UsersService } from '../users/users.service';
 import { Order } from './order';
 import { User } from '../users/user';
 import { OrdersService } from './orders.service';
+import { ObjectID } from 'mongodb';
 import { Product } from '../products/product';
 import { ProductsService } from '../products/products.service';
 import { CratesService } from '../crates/crates.service';
+import { Crate } from '../crates/crate';
 import { UserLocation } from '../user-locations/user-location';
 import { UserLocationsService } from '../user-locations/user-locations.service';
 import { CreateOrderInput } from './dto/create-order.input';
@@ -32,7 +34,8 @@ export class OrdersResolver {
 
       return (await this.ordersService.createOne({
         ...data,
-        user: user.id,
+        user_location: new ObjectID(data.user_location),
+        user: new ObjectID(user.id),
         charge: average_price,
       })).id;
     }
@@ -48,14 +51,10 @@ export class OrdersResolver {
     }
 
     @Query(returns => [Order], { nullable: true })
-    async getOrdersByLocation(
-      @Args('user_location_id') user_location_id: string,
-      @Args('product_id') product_id: string
+    async getOrdersByBuilding(
+      @Args('building_id') building_id: string,
     ): Promise<Order[]> {
-      // find user location by id
-      // get the orders by the user_location
-      // narrow it down by product_id, if provided
-      return null;
+      return await this.ordersService.getOrdersByBuilding(building_id);
     }
 
     @ResolveProperty('user')
@@ -66,5 +65,10 @@ export class OrdersResolver {
     @ResolveProperty('user_location')
     async user_location(@Parent() order) : Promise<UserLocation> {
         return await this.userLocationService.findOneById(order.user_location);
+    }
+
+    @ResolveProperty('crate')
+    async crate(@Parent() order: Order): Promise<Crate> {
+      return await this.cratesService.findOneById(order.crate);
     }
 }
