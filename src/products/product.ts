@@ -15,8 +15,8 @@ export class Product extends Typegoose {
     @prop({ required: true })
     description: string;
 
-    @Field()
-    @prop({ required: true })
+    @Field({ nullable: true })
+    @prop({ required: false })
     image_url: string;
 
     @Field()

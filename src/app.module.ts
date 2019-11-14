@@ -4,9 +4,10 @@ import { UsersModule } from './users/users.module';
 import { BuildingsModule } from './buildings/buildings.module';
 import { CratesModule } from './crates/crates.module';
 import { ProductsModule } from './products/products.module';
+import { ImagesModule } from './images/images.module';
 import { OrdersModule } from './orders/orders.module';
 import { UserLocationsModule } from './user-locations/user-locations.module';
-import { join } from 'path';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { join } from 'path';
     UserLocationsModule,
     CratesModule,
     ProductsModule,
+    ImagesModule,
   ],
 })
 export class AppModule {}
